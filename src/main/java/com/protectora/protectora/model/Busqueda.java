@@ -4,9 +4,7 @@ package com.protectora.protectora.model;
 import java.io.Serializable;
 import javax.persistence.*;
 import lombok.*;
-
-
-
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -20,7 +18,9 @@ public class Busqueda implements Serializable {
     String nombre;
     String localidad;
     String telefono;
-    String img;
+    @Transient
+    MultipartFile img;
+    String rutaImagen;
     
     
     //CONSTRUCTORES
@@ -28,11 +28,16 @@ public class Busqueda implements Serializable {
     public Busqueda() {
     }
 
-    public Busqueda(String nombre, String localidad, String telefono, String img) {
+    public Busqueda(String nombre, String localidad, String telefono, MultipartFile img, String rutaImagen) {
         this.nombre = nombre;
         this.localidad = localidad;
         this.telefono = telefono;
         this.img = img;
+        this.rutaImagen = rutaImagen;
     }
+
+  
+
+   
     
 }

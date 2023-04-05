@@ -6,9 +6,13 @@ package com.protectora.protectora.controller;
 
 import com.protectora.protectora.model.Busqueda;
 import com.protectora.protectora.service.BusquedaService;
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @RestController
@@ -16,27 +20,29 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/busqueda")
 public class BusquedaController {
     @Autowired
-    BusquedaService busquedaservice;
+    BusquedaService busquedaService;
     
     @GetMapping
     @ResponseBody
     public List<Busqueda>verBusquedas(){
-        return busquedaservice.verBusquedas();
+        return busquedaService.verBusquedas();
     }
             
-    @PostMapping
-    public void agregarBusqueda(@RequestBody Busqueda busq){
-    busquedaservice.agregar(busq);
+    @PostMapping(consumes = {"multipart/form-data"})
+    public ResponseEntity<Busqueda> agregarBusqueda(@ModelAttribute Busqueda busq){
+        busquedaService.agregar(busq);
+        return new ResponseEntity<>(busq, HttpStatus.CREATED);
     }
+  
     
    @DeleteMapping("/{id}")
     public void eliminarBusqueda(@PathVariable Long id){
-    busquedaservice.eliminar(id);
+    busquedaService.eliminar(id);
     }
     
     
      @PutMapping
     public void modificarBusqueda(@RequestBody Busqueda busq){
-    busquedaservice.editar(busq);
+    busquedaService.editar(busq);
     }
 }

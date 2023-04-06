@@ -31,9 +31,8 @@ public class BusquedaController {
     @PostMapping(consumes = {"multipart/form-data"})
     public ResponseEntity<Busqueda> agregarBusqueda(@ModelAttribute Busqueda busq){
         busquedaService.agregar(busq);
-        return new ResponseEntity<>(busq, HttpStatus.CREATED);
+        return new ResponseEntity<>(busq, HttpStatus.OK);
     }
-  
     
    @DeleteMapping("/{id}")
     public void eliminarBusqueda(@PathVariable Long id){

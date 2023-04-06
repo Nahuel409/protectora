@@ -20,6 +20,7 @@ public class Busqueda implements Serializable {
     String telefono;
     @Transient
     MultipartFile img;
+    @Column(name = "ruta_imagen")
     String rutaImagen;
     
     
